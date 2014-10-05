@@ -118,18 +118,16 @@ The support site contains a complete walkthrough for performing this step and is
 \subsubsection{Managing Phabricator credentials}
 The support site contains a complete walkthrough for performing this step and is available at \url{https://support.cs.wwu.edu/index.php/Managing_Phabricator_credentials}.  Follow only the section pertaining to \textbf{Linux} unless otherwise directed.
 
-\section{Git}
+\subsection{Git}
 Git is one of many types of repository.  As we said earlier, the repository holds a collection of code files for a single project.  How do you interact with the repository?  Think of the repository as a parking garage, and Git as a valet.  As a guest of the hotel, you are discouraged from going into the garage to get your car yourself.  Instead, you have the valet retrieve and park your car for you.  Git is the valet for our repository; we will be telling it to retrieve and store our files for us.
 
 We begin by creating a local working copy of this repository, a process called cloning.  Once we have a local working copy, we will add the lab files and push the newly-added files into the repository.  In the immediate future, we will also modify, remove, and rename files as well, and we will see that \verb|git| has easy-to-use commands for these operations as well.
 
 \subsection{Cloning our new repository}
 At this point, we have created and activated our repository.  It's time to clone the repository to a local working directory.  In the terminal, type
-
 \begin{verbatim}
 $ cd ~
 \end{verbatim}
-
 to make sure that when we clone our repository, the local working directory is created in our home directory.  Now, if you go the details page for the repository in Phabricator, it will display a command that can be used have \verb|git| clone your repository over either SSH or HTTP.  Locate the option for \textbf{Clone (SSH).} For our imaginary friend Semolina Pilchard, this string would look like
 
 \begin{verbatim}
@@ -137,14 +135,12 @@ $ git clone ssh://vcs@forge.cs.wwu.edu/diffusion/PILCHARDS/cs247w15
 \end{verbatim}
 
 Copy and paste this string into the terminal window.  The terminal will respond with something like
-
 \begin{verbatim}
 Cloning into 'csci247w15'...
 Enter passphrase for key '/home/pilchas/.ssh/id_rsa': 
 warning: You appear to have cloned an empty repository.
 Checking connectivity... done
 \end{verbatim}
-
 If you get this warning, that's a good sign!  It means that you have successfully cloned your repository into a local working directory.  There are a few things that could cause this step to fail, including but not limited to:
 
 	\begin{enumerate}
@@ -172,14 +168,10 @@ Imagine your household on the day before trash day.  All of the trash cans are f
 
 \subsubsection{Step 1 of 3: Adding new content}
 The files we want to add to our repository reside in our working folder.  We need to tell Git to prepare them for inclusion into the repo.  The command for this is \verb|git add| followed by one or more file or directory names.  Let's add the entire \verb|floatlet| directory:
-
 \begin{verbatim}
 $ git add floatlet
-$
 \end{verbatim}
-
 Git is the strong and silent type; it didn't say anything, but did it do what we asked?  Let's find out.
-
 \begin{verbatim}
 $ git status
 On branch master
@@ -204,13 +196,11 @@ Untracked files:
   (use "git add <file>..." to include in what will be committed)
 
 	floatlet.tgz
-$
 \end{verbatim}
 Groovy.  This is Git telling us that it has scheduled the \verb|floatlet| directory, and all of the files it contains, to be added to the repo on the next commit.  Notice that these are \textit{changes to be committed}; \verb|git| didn't actually modify the repository yet.
 
 \subsubsection{Step 2 of 3: Committing a set of changes}
 The files we added in Step 1 are all related; they're all part of an initial checkin.   Once we have scheduled files to be added to the repo, we can ``package up'' all of these related files to be updated in a single commit, and we can associate with this commit a comment that makes it clear to ourselves, the professor, and anybody grading your work just what you've been up to.  Let's commit the files we've added, but use the \verb|-m| switch to provide a message for posterity.  (If you're new to coding, you'll be appalled at how quickly you forget what you checked in and why you changed it.  You will thank yourself for leaving detailed commit messages.)
-
 \begin{verbatim}
 $ git commit -m "This is my first checkin."
 [master (root-commit) 2ca05f2] This is my first checkin.
@@ -227,10 +217,8 @@ $ git commit -m "This is my first checkin."
  create mode 100644 floatlet/print_test.c
  create mode 100644 floatlet/print_test.dat
  create mode 100755 floatlet/print_test.sh
-$ 
 \end{verbatim}
-
-But we're not quite done yet!
+But we're not quite done yet...
 
 \subsubsection{Step 3 of 3: Sending all staged commits to your repository}
 You might have thought that \verb|commit| had a sense of finality about it, but it's not quite the last word.  As we said above, it might be the case that you now want to start on a new set of related changes; in fact, it is good practice to group related changes into a single commit.  However, if you're new at this, I would suggest pushing your changes to the repository early and often, so let's follow up every \verb|commit| with a \verb|push|, which is in fact the final word in the process.
@@ -246,7 +234,7 @@ fatal: The remote end hung up unexpectedly
 error: failed to push some refs to 'ssh://vcs@forge.cs.wwu.edu/diffusion/PILCHARDS/cs247w15.git'
 \end{verbatim}
 
-Blah, blah, blah.  To get around this error, we have to mutter the arcane incantation
+Yada yada yada.  To get around this error, we have to mutter the arcane incantation
 
 \begin{verbatim}
 $ git push origin master
@@ -259,9 +247,48 @@ To ssh://vcs@forge.cs.wwu.edu/diffusion/PILCHARDS/cs247w15.git
  * [new branch]      master -> master
 \end{verbatim}
 
-This incantation is also a one-time-only thing on the first push to an empty repository.  Future pushes can just say \verb|git push|.
+This incantation is also a one-time-only thing on the first push to an empty repository.  Future pushes can just say
+
+\begin{verbatim}
+$ git push
+\end{verbatim}
+
+\section{Some useful \texttt{git} commands}
+
+\begin{itemize}
+	\item \verb|git clone <url>| clones a repository if your environment does not yet have a working directory.  (Note that your home directory and network drives are shared, so if you sit down at a new terminal in any of the CS computer labs, you will see your working directory already exists.)
+	\item \verb|git pull| gets the most recent version of files in the repository if your environment already has a working directory (that is, you've already done a \verb|git clone| on this environment.
+	\item \verb|git status| shows you if the current folder is being tracked by \verb|git|, and, if so, which folders and files in the current directory have been modified and staged (included in the next commit) by \verb|git|.
+	\item \verb|git add| stages folders and/or files for inclusion in the next commit.
+	\item \verb|git diff| returns a list of changes between staged files and the corresponding files in the repository.
+	\item \verb|git commit -m <message>| commits all files and folders that are currently staged by \verb|git|.
+	\item \verb|git push| updates the repository with all changes contained in all open commits.
+\end{itemize}
 
 \section{Working Remotely}
+Anything that is available in the labs is available for you to access from home, if you're willing to put in a little work.
 
-\section{Helpful Commands}
+\subsection{Accessing the command line remotely}
+If you are content to access a solely command-line environment from home, this section will help you configure your computer at home to access the CS domain:
+
+\subsubsection{If you use Linux at home...}
+...then this will be quite straightforward.  From a terminal window on your home Linux environment, you can use \verb|ssh|, the ``secure shell'' application we used to test our SSH key in step 2.2 above, to connect to the computer cluster.  For instance, our imaginary friend Semolina would type
+\begin{verbatim}
+$ ssh pilchas@linux.cs.wwu.edu
+\end{verbatim}
+You can also use \verb|scp|, ``secure copy'', and \verb|sftp|, ``secure FTP'', to transfer files.
+
+\subsubsection{If you use Windows at home...}
+You should consult the support page at \url{https://support.cs.wwu.edu/index.php/VNC_and_tunneling_through_SSH}.  Unless you are using Cygwin, a Windows port of a number of Linux tools, you will need to download a free program called PuTTY.
+
+\subsubsection{If you use Windows at home and want to try Linux...}
+A very convenient way to install Linux at home without having to repartition your hard drive is to use virtualization software such as Oracle's VirtualBox (\url{https://www.virtualbox.org}), a free and easy-to-use program ``fakes out'' an operating system, making it look to the new operating system that it owns the entire computer when in fact, the new operating system is just running in software.  Once you have VirtualBox installed, you can download an \verb|.iso|, or disk image, of the installer of another operating system, such as
+\begin{itemize}
+	\item Ubuntu (\url{http://www.ubuntu.com}), the popular flavor of Linux that runs in the computer labs
+	\item Lubuntu (\url{http://lubuntu.net}), a scaled-down version of Ubuntu good for older/slower computers
+	\item many, many others, including FreeBSD, Linux Mint, Debian, Fedora.  You could even run another version of Windows in Windows if you wanted to.
+\end{itemize}
+
+\subsection{Accessing the graphical applications of the lab computers remotely}
+Once you are able to access the command line remotely, follow the instructions starting at ``\textbf{Starting the VNC Server}'' in the documentation at \url{https://support.cs.wwu.edu/index.php/VNC_and_tunneling_through_SSH}.
 \end{document}
