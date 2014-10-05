@@ -1,7 +1,7 @@
 % CSCI 247 Lab 1 Documentation
 % Author: Sam Pollard (sam.d.pollard@gmail.com)
 % Author: burkhac (burkhac@students.wwu.edu)
-% Last Modified: October 3, 2014
+% Last Modified: October 4, 2014
 
 \documentclass[12pt]{article}
 \usepackage[margin=1in, headheight=15pt]{geometry}
@@ -60,7 +60,7 @@ Any file which starts with a period is considered hidden and doesn't show up wit
 
 One of particular interest is the \verb|.bashrc| file. This may not exist on your clean home directories, but by the end of the quarter you will probably have some useful stuff in there. A \verb|.bashrc| is a \emph{script} that runs every time you log in. For example, in my script I have 
 \begin{verbatim}
-alias ls ls --color
+alias ls='ls --color'
 \end{verbatim}
 which colors files based on their type (directories, executables, etc.).
 
@@ -262,6 +262,43 @@ To ssh://vcs@forge.cs.wwu.edu/diffusion/PILCHARDS/cs247w15.git
 This incantation is also a one-time-only thing on the first push to an empty repository.  Future pushes can just say \verb|git push|.
 
 \section{Working Remotely}
+If you are running Linux on your home computer, things are much easier. Even easier if you know how to use a text editor which works in a terminal such as emacs or vim. We'll start with the easiest and work our way up.
 
+\subsection{Working remotely on Linux}
+You'll be connecting via the command \verb|ssh|. There is the option -Y which allows X-windows to run over an ssh connection. Simply put, you can open up windows on your home computer running programs on the machines here on the lab.
+
+You can connect to any lab computer. However, it is recommended that you choose the following ``computer'' to connect to:
+\begin{verbatim}
+linux.cs.wwu.edu
+\end{verbatim}
+This is preferable to, say, \verb|cf416-05.cs.wwu.edu|, for example, because the computers at the linux address are in some closet somewhere and are not touched by students. That is, no one will randomly turn off the computer and boot you off.
+
+For example, Semolina Pilchard would connect using the command
+\begin{verbatim}
+ssh -Y pilchas@linux.cs.wwu.edu
+\end{verbatim}
+
+Occasionally, you might get the following message:
+\begin{verbatim}
+Warning: the ECDSA host key for 'linux.cs.wwu.edu' differs from the key
+for the IP address '140.160.137.172'
+Offending key for IP in /home/pichas/.ssh/known_hosts:12
+Matching host key in /home/pichas/.ssh/known_hosts:21
+Are you sure you want to continue connecting (yes/no)? yes
+\end{verbatim}
+``Yes'' is the correct response here. Every quarter the lab computers get re-imaged and the ECDSA host key changes. If you connect to the same computer every time, you will only get this warning once.
+
+Now, if you wanted to run a program, you would simply type \verb|emacs| to bring up an emacs instance on your home computer. Note that you must have emacs (or any other computer you have) installed on your home computer. To do this in Ubuntu, for example, type
+\begin{verbatim}
+sudo apt-get install emacs23
+\end{verbatim}
+
+\subsection{Working in Windows}
+The simplest method for working remotely in a Windows environment is to download PuTTY (\url{http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html}). Then, follow the instructions at \url{https://support.cs.wwu.edu/index.php/VNC_and_tunneling_through_SSH}. If you do not want to set up tunnelling over SSH, you can just use the terminal interface to get work done. Vim works in a terminal screen, and emacs can be run in a terminal mode by adding the \verb|-nw| (no window) flag. If you do not use either of those editors, the editor \verb|nano| could also be used, but keep in mind, nano is \emph{not} a powerful editor and is only useful when doing very simple editing. These three options are listed below:
+\begin{verbatim}
+$ nano myfile.txt
+$ vim myfile.txt
+$ emacs -nw myfile.txt
+\end{verbatim}
 \section{Helpful Commands}
 \end{document}
