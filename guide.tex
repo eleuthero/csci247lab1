@@ -1,7 +1,7 @@
 % CSCI 247 Lab 1 Documentation
 % Author: Sam Pollard (sam.d.pollard@gmail.com)
 % Author: burkhac (burkhac@students.wwu.edu)
-% Last Modified: October 3, 2014
+% Last Modified: October 4, 2014
 
 \documentclass[12pt]{article}
 \usepackage[margin=1in, headheight=15pt]{geometry}
@@ -60,7 +60,7 @@ Any file which starts with a period is considered hidden and doesn't show up wit
 
 One of particular interest is the \verb|.bashrc| file. This may not exist on your clean home directories, but by the end of the quarter you will probably have some useful stuff in there. A \verb|.bashrc| is a \emph{script} that runs every time you log in. For example, in my script I have 
 \begin{verbatim}
-alias ls ls --color
+alias ls='ls --color'
 \end{verbatim}
 which colors files based on their type (directories, executables, etc.).
 
@@ -266,20 +266,45 @@ $ git push
 \end{itemize}
 
 \section{Working Remotely}
-Anything that is available in the labs is available for you to access from home, if you're willing to put in a little work.
+If you are running Linux on your home computer, things are much easier. Even easier if you know how to use a text editor which works in a terminal such as emacs or vim. We'll start with the easiest and work our way up.
 
-\subsection{Accessing the command line remotely}
-If you are content to access a solely command-line environment from home, this section will help you configure your computer at home to access the CS domain:
+\subsection{Working remotely on Linux}
+You'll be connecting via the command \verb|ssh|. There is the option \verb|-Y| which allows X-windows to run over an ssh connection. Simply put, you can open up windows on your home computer running programs on the machines here on the lab.
 
-\subsubsection{If you use Linux at home...}
-...then this will be quite straightforward.  From a terminal window on your home Linux environment, you can use \verb|ssh|, the ``secure shell'' application we used to test our SSH key in step 2.2 above, to connect to the computer cluster.  For instance, our imaginary friend Semolina would type
+
+You can connect to any lab computer. However, it is recommended that you choose the following ``computer'' to connect to:
 \begin{verbatim}
-$ ssh pilchas@linux.cs.wwu.edu
+linux.cs.wwu.edu
 \end{verbatim}
-You can also use \verb|scp|, ``secure copy'', and \verb|sftp|, ``secure FTP'', to transfer files.
+This is preferable to, say, \verb|cf416-05.cs.wwu.edu|, for example, because the computers at the linux address are in some closet somewhere and are not touched by students. That is, no one will randomly turn off the computer and boot you off.
 
-\subsubsection{If you use Windows at home...}
-You should consult the support page at \url{https://support.cs.wwu.edu/index.php/VNC_and_tunneling_through_SSH}.  Unless you are using Cygwin, a Windows port of a number of Linux tools, you will need to download a free program called PuTTY.
+For example, Semolina Pilchard would connect using the command
+\begin{verbatim}
+$ ssh -Y pilchas@linux.cs.wwu.edu
+\end{verbatim}
+
+Occasionally, you might get the following message:
+\begin{verbatim}
+Warning: the ECDSA host key for 'linux.cs.wwu.edu' differs from the key
+for the IP address '140.160.137.172'
+Offending key for IP in /home/pilchas/.ssh/known_hosts:12
+Matching host key in /home/pilchas/.ssh/known_hosts:21
+Are you sure you want to continue connecting (yes/no)? yes
+\end{verbatim}
+``Yes'' is the correct response here. Every quarter the lab computers get re-imaged and the ECDSA host key changes. If you connect to the same computer every time, you will only get this warning once.
+
+Now, if you wanted to run a program, you would simply type \verb|emacs| to bring up an emacs instance on your home computer. Note that you must have emacs (or any other computer you have) installed on your home computer. To do this in Ubuntu, for example, type
+\begin{verbatim}
+$ sudo apt-get install emacs23
+\end{verbatim}
+
+\subsection{Working in Windows}
+The simplest method for working remotely in a Windows environment is to download PuTTY (\url{http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html}). Then, follow the instructions at \url{https://support.cs.wwu.edu/index.php/VNC_and_tunneling_through_SSH}. If you do not want to set up tunnelling over SSH, you can just use the terminal interface to get work done. Vim works in a terminal screen, and emacs can be run in a terminal mode by adding the \verb|-nw| (no window) flag. If you do not use either of those editors, the editor \verb|nano| could also be used, but keep in mind, nano is \emph{not} a powerful editor and is only useful when doing very simple editing. These three options are listed below:
+\begin{verbatim}
+$ nano myfile.txt
+$ vim myfile.txt
+$ emacs -nw myfile.txt
+\end{verbatim}
 
 \subsubsection{If you use Windows at home and want to try Linux...}
 A very convenient way to install Linux at home without having to repartition your hard drive is to use virtualization software such as Oracle's VirtualBox (\url{https://www.virtualbox.org}), a free and easy-to-use program ``fakes out'' an operating system, making it look to the new operating system that it owns the entire computer when in fact, the new operating system is just running in software.  Once you have VirtualBox installed, you can download an \verb|.iso|, or disk image, of the installer of another operating system, such as
@@ -291,4 +316,5 @@ A very convenient way to install Linux at home without having to repartition you
 
 \subsection{Accessing the graphical applications of the lab computers remotely}
 Once you are able to access the command line remotely, follow the instructions starting at ``\textbf{Starting the VNC Server}'' in the documentation at \url{https://support.cs.wwu.edu/index.php/VNC_and_tunneling_through_SSH}.
+
 \end{document}
